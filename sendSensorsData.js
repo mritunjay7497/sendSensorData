@@ -12,6 +12,7 @@ let commandOutput = {};
 
 commandOutput[Object.keys(commandObject)[0]] = JSON.parse(execSync(commandObject.sensor));
 
+
 let sensorInfo = {}
 if(commandOutput["sensor"]["iwlwifi_1-virtual-0"]){
     sensorInfo["wifi-chip-temp"] = commandOutput["sensor"]["iwlwifi_1-virtual-0"]["temp1"]["temp1_input"];
@@ -28,7 +29,16 @@ if(commandOutput["sensor"]["coretemp-isa-0000"]){
     sensorInfo["cpu-2-temp"] = commandOutput["sensor"]["coretemp-isa-0000"]["Core 3"]["temp5_input"];
 }
 
+console.log(sensorInfo)
+
 fs.writeFile("sensors.json", JSON.stringify(sensorInfo,undefined,2),() => {
     console.log("starting upload routine...\n")
-    spawn("python3",["/home/plusx/sendSensorData/uploadToGoogleSheets.py"]);
+    const uploader = spawn("python3",["/home/plusx/sendSensorData/uploadToGoogleSheets.py"]);
+    uploader.stderr.on("err",(err) => {
+        console.log("err: ",err);
+    });
+
+    uploader.stdout.on('msg',(msg)=>{
+        console.log("msg: ",msg);
+    });
 });

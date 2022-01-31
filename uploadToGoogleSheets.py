@@ -17,7 +17,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 sheetId = {}
 
-with open("sensitiveInfo.json", "r") as sensitiveInfo:
+with open("/home/plusx/sendSensorData/sensitiveInfo.json", "r") as sensitiveInfo:
     sheetId['spreadheetId'] = json.load(sensitiveInfo)
 
 SPREADSHEET_ID = sheetId['spreadheetId']['SPREADHSEET_ID']
