@@ -1,0 +1,14 @@
+{
+  "name": "send-sensor-data",
+  "version": "1.0.0",
+  "description": "Sends the various sensor data of a linux based os to signal/telegram for continuous monitoring.",
+  "main": "sendSensorsData.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mritunjay Kumar Mani",
+  "license": "ISC",
+  "dependencies": {
+    "json2xls": "^0.1.2"
+  }
+}
