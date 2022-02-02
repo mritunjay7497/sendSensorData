@@ -57,11 +57,13 @@ def main():
         with open("sensors.json", "r") as sj:
             sensorJson = json.load(sj)
 
-        currentReading = []
+        currentReading = [["wifi-chip-temp", "ssd-composite-temp", "ssd-sensor1-temp",
+                           "ssd-sensor2-temp", "cpu-0-temp", "cpu-1-temp", "cpu-2-temp"]]
 
         for sensor in sensorJson.keys():
-            currentReading.append([sensor, sensorJson[sensor]])
+            currentReading.append([sensorJson[sensor]])
 
+        print(currentReading)
         request = service.spreadsheets().values().update(spreadsheetId=SPREADSHEET_ID,
                                                          range=RANGE_NAME, valueInputOption=value_input_option, body={"values": currentReading})
 
@@ -75,4 +77,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    os.system("rm sensors.json")
+    # os.system("rm sensors.json")
